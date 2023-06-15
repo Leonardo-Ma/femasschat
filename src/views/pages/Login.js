@@ -14,7 +14,7 @@ export default function LoginScreen()
 
   const handleLoginPress = () =>
   {
-    handleLogin(login, senha, navigation, setErrorMessage);
+    handleLogin(login, senha, setErrorMessage);
     if (!errorMessage)
       navigation.navigate("Chats");
   };

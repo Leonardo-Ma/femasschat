@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './CreateAccount.style.js';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import axios from 'axios';
+import * as FileSystem from 'expo-file-system';
+import { handleCadastro } from './Controller.js';
 
 export default function CreateAccount()
 {
@@ -17,69 +18,51 @@ export default function CreateAccount()
   const [telefone, setTelefone] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-
-  const selectAvatar = async () =>
+  const cadastrar = () =>
   {
-    try
+    if (!nome || !avatar || !senha || !email || !telefone)
     {
-      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setErrorMessage('Insira todos os campos.');
+      return;
+    }
+    else
+    {
+      handleCadastro(nome, avatar, senha, email, telefone, setErrorMessage);
+      if (!errorMessage)
+        navigation.navigate("Chats");
+    }
+  };
 
-      if (!permissionResult.granted)
-      {
+  const selectAvatar = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  
+      if (!permissionResult.granted) {
         console.log('Permissao negada.');
         return;
       }
-
+  
       const imageResult = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
-
-      if (!imageResult.canceled && imageResult.assets.length > 0)
-      {
+  
+      if (!imageResult.canceled && imageResult.assets.length > 0) {
         const selectedAsset = imageResult.assets[0];
-        if (selectedAsset.base64)
-        {
-          setAvatar(`data:${selectedAsset.type};base64,${selectedAsset.base64}`);
+        if (selectedAsset.uri) {
+          const base64String = await FileSystem.readAsStringAsync(selectedAsset.uri, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
+          setAvatar(`data:${selectedAsset.type};base64,${base64String}`);
         }
       }
-    } catch (error)
-    {
+    } catch (error) {
       console.log('Error selecting avatar:', error);
     }
   };
-
-  const Cadastrar = async () =>
-  {
-    try
-    {
-      if (!nome || !avatar || !senha || !email || !telefone)
-      {
-        setErrorMessage('Insira todos os campos.');
-        return;
-      }
-
-      const response = await axios.post('http://bdfemasschat-env-2.eba-7p43uarw.sa-east-1.elasticbeanstalk.com/user/', {
-        nome,
-        avatar,
-        senha,
-        email,
-        telefone
-      });
-
-      if (response.status === 200)
-      {
-        navigation.navigate('Chats');
-      }
-    } catch (error)
-    {
-      setErrorMessage(error.message);
-    }
-  };
-
-
+  
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#15202b" barStyle="light-content" />
@@ -119,7 +102,7 @@ export default function CreateAccount()
           value={senha}
           onChangeText={setSenha}
           required />
-        <TouchableOpacity style={styles.registerButton} onPress={() => Cadastrar()}>
+        <TouchableOpacity style={styles.registerButton} onPress={() => cadastrar()}>
           <Text style={styles.registerButtonText}>Cadastrar</Text>
         </TouchableOpacity>
         {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}

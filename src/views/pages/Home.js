@@ -16,27 +16,23 @@ export default function Home()
       {
         const hash = await AsyncStorage.getItem('hash');
         const id = await AsyncStorage.getItem('id');
+
         if (hash)
         {
           const url = `http://bdfemasschat-env-2.eba-7p43uarw.sa-east-1.elasticbeanstalk.com/user/${id}`;
-
           const response = await axios.get(url);
-
           if (response.status == 200 && response.data == hash)
           {
             navigation.navigate('Chats');
           }
-
         }
       } catch (error)
       {
         console.log(error);
       }
     };
-
     checkHash();
   }, []);
-
 
   return (
     <View style={styles.container}>
