@@ -61,7 +61,7 @@ export default function CreateAccount()
         return;
       }
 
-      const response = await axios.post('http://localhost:8080/user/', {
+      const response = await axios.post('http://bdfemasschat-env-2.eba-7p43uarw.sa-east-1.elasticbeanstalk.com/user/', {
         nome,
         avatar,
         senha,
@@ -71,7 +71,6 @@ export default function CreateAccount()
 
       if (response.status === 200)
       {
-
         navigation.navigate('Chats');
       }
     } catch (error)

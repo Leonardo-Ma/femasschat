@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StatusBar, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './Login.style.js';
 import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './Login.style.js';
+import { handleLogin } from './Controller.js';
 
 export default function LoginScreen()
 {
@@ -13,32 +12,13 @@ export default function LoginScreen()
   const [senha, setSenha] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = async () =>
+  const handleLoginPress = () =>
   {
-    try
-    {
-      const url = `http://localhost:8080/user/${login}/${senha}`;
-
-      const response = await axios.get(url);
-
-      if (response.status === 200)
-      {
-        const { id } = response.data; // Id to usuario
-
-        const url = `http://localhost:8080/user/${id}`;
-        const hash = await axios.get(url);// GET para hash do usuario a partir do id recebido
-
-        await AsyncStorage.setItem('hash', hash); // Salva hash no local
-
-        navigation.navigate('Chats');
-      }
-    } catch (error)
-    {
-      setErrorMessage(error.message);
-      setSenha('');
-    }
-
+    handleLogin(login, senha, navigation, setErrorMessage);
+    if (!errorMessage)
+      navigation.navigate("Chats");
   };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#15202b" barStyle="light-content" />
@@ -59,12 +39,20 @@ export default function LoginScreen()
           value={senha}
           onChangeText={setSenha}
         />
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={handleLoginPress}
+        >
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
-        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+        {errorMessage ? (
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
+        ) : null}
       </View>
-      <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.returnButton}
+        onPress={() => navigation.goBack()}
+      >
         <Ionicons name="arrow-back" size={30} />
       </TouchableOpacity>
     </View>
