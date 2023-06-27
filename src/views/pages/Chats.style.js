@@ -6,6 +6,8 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'gray',
+    paddingTop: statusBar,
+    paddingHorizontal: 16,
   },
   femasschat: {
     fontSize: 18,
@@ -15,13 +17,13 @@ export default StyleSheet.create({
   },
   box: {
     backgroundColor: 'orange',
-    width: '80%',
-    height: 100,
     borderRadius: 10,
     marginBottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   userIcon: {
     marginBottom: 10,
@@ -31,6 +33,12 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginRight: 10,
   },
   messageText: {
     color: 'black',

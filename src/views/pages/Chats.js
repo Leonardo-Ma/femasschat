@@ -1,19 +1,34 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import styles from './Chats.style.js';
 import { useNavigation } from '@react-navigation/native';
+import { checkUserWithMessages } from './Controller.js';
 
 export default function Chats()
 {
   const navigation = useNavigation();
-  const blocks = [
-    { id: 1, name: 'Patrick', message: 'Mensagem' },
-    { id: 2, name: 'Ricardo', message: 'Mensagem' },
-    { id: 3, name: 'Yago', message: 'Mensagem' },
-    { id: 4, name: 'Brendownmn', message: 'Mensagem' },
-    { id: 5, name: 'Geladeira', message: 'Mensagem' },
-  ];
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() =>
+  {
+    loadUsersWithMessage();
+  }, []);
+
+  const loadUsersWithMessage = async () =>
+  {
+    const response = await checkUserWithMessages();
+    if (response.success)
+    {
+      setMessages(response.chatsArray);
+    }
+  };
+
+  const handleNewConversation = () =>
+  {
+    loadUsersWithMessage();
+    navigation.navigate('NewConversation');
+  };
 
   return (
     <View style={styles.container}>
@@ -22,17 +37,16 @@ export default function Chats()
       </TouchableOpacity>
       <Text style={styles.femasschat}>FeMASSChat</Text>
 
-      {blocks.map((block) => (
-        <View style={styles.box} key={block.id}>
-          <Feather name="user" size={60} color="gray" style={styles.userIcon} />
-          <Text style={styles.userName}>{block.name}</Text>
-          <Text style={styles.messageText}>{block.message}</Text>
+      {messages.map((message) => (
+        <View style={styles.box} key={message.id}>
+          <Image source={{ uri: `${message.avatar}` }} style={styles.avatar} />
+          <View style={styles.messageContent}>
+            <Text style={styles.userName}>{message.name}</Text>
+          </View>
         </View>
       ))}
 
-      <TouchableOpacity
-        style={styles.newConversationButton}
-        onPress={() => navigation.navigate('NewConversation')}      >
+      <TouchableOpacity style={styles.newConversationButton} onPress={handleNewConversation}>
         <Text style={styles.newConversationButtonText}>Nova Conversa</Text>
       </TouchableOpacity>
     </View>

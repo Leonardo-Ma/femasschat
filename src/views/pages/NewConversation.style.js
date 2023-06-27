@@ -13,7 +13,6 @@ export default StyleSheet.create({
     marginTop: statusBarHeight,
     marginBottom: 10,
   },
-
   searchContainer: {
     alignItems: 'center',
     marginTop: 20,
@@ -33,15 +32,39 @@ export default StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   searchButtonText: {
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
   },
+  minimumCharacterText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
+  },
   returnButton: {
     position: 'absolute',
     bottom: 20,
     left: 20,
+  },
+  userItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    marginBottom: 1,
+  },
+  userAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

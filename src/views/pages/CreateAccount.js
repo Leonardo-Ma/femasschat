@@ -27,8 +27,8 @@ export default function CreateAccount()
     }
     else
     {
-      handleCadastro(nome, avatar, senha, email, telefone, setErrorMessage);
-      if (!errorMessage)
+      
+      if (handleCadastro(nome, avatar, senha, email, telefone))
         navigation.navigate("Chats");
     }
   };
