@@ -7,6 +7,7 @@ import LoginScreen from './src/views/pages/Login.js';
 import CreateAccount from './src/views/pages/CreateAccount.js';
 import Chats from './src/views/pages/Chats.js';
 import NewConversation from './src/views/pages/NewConversation.js';
+import Message from './src/views/pages/Message.js';
 
 const Stack = createStackNavigator(); // Para navegar em telas diferentes
 
@@ -20,6 +21,7 @@ export default function App()
         <Stack.Screen name="CreateAccount" component={CreateAccount} options={{ headerShown: false }} />
         <Stack.Screen name="Chats" component={Chats} options={{ headerShown: false }} />
         <Stack.Screen name="NewConversation" component={NewConversation} options={{ headerShown: false }} />
+        <Stack.Screen name="Message" component={Message} options={{ headerShown: false }} />
       </Stack.Navigator >
     </NavigationContainer>
   );

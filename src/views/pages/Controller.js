@@ -92,16 +92,16 @@ export const checkMessagesBetweenUsers = async (idOther) =>
   const id = await getIdAsyncStorage();
   try
   {
-    const url = `${URL}/message/buscarUsuariosComConversa/${id}/${idOther}`;
+    const url = `${URL}/message/buscarMensagensComUmUsuario/${id}/${idOther}`;
     const response = await axios.get(url);
 
     if (response.status === 200)
     {
-      const messageArray = response.data.map(({ id, data, hora, texto }) => ({
+      const messageArray = response.data.map(({ id, dataHora, from, mensagem }) => ({
         id,
-        date: data,
-        time: hora,
-        text: texto
+        date: new Date(dataHora).toLocaleDateString(),
+        time: new Date(dataHora).toLocaleTimeString(),
+        text: mensagem
       }));
 
       return { success: true, messageArray };
@@ -110,19 +110,23 @@ export const checkMessagesBetweenUsers = async (idOther) =>
   {
     return { success: false, error: error.message };
   }
-}
-export const checkUsers = async (user) =>
+};
+
+export const checkUsers = async () =>
 {
   try
   {
-    const url = `${URL}/message/buscarUsuarios/${user}`;
+    const url = `${URL}/message/buscarUsuarios/22`;
     const response = await axios.get(url);
 
     if (response.status === 200)
     {
-      const usersArray = response.data.map(({ id, nome}) => ({
+      const usersArray = response.data.map(({ id, nome, apelido, email, telefone }) => ({
         id,
         name: nome,
+        nickname: apelido,
+        email,
+        phone: telefone
       }));
 
       return { success: true, usersArray };
@@ -132,3 +136,24 @@ export const checkUsers = async (user) =>
     return { success: false, error: error.message };
   }
 };
+
+export const sendMessage = async (idTo, mensagem) =>
+{
+  const idFrom = await getIdAsyncStorage();
+  try
+  {
+    console.log(idFrom, idTo, mensagem);
+    const response = await axios.post(`${URL}/message/enviarMensagem`, {
+      idFrom,
+      idTo,
+      mensagem
+    });
+    if (response.status === 200)
+    {
+      return { success: true };
+    }
+  } catch (error)
+  {
+    return { success: false, error: error.message };
+  }
+}

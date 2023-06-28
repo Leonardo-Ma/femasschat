@@ -35,15 +35,14 @@ export default function Chats()
       <TouchableOpacity style={styles.returnButton} onPress={() => navigation.navigate('Home')}>
         <Feather name="arrow-left" size={30} color="black" />
       </TouchableOpacity>
-      <Text style={styles.femasschat}>FeMASSChat</Text>
-
       {messages.map((message) => (
-        <View style={styles.box} key={message.id}>
+        <TouchableOpacity onPress={() => navigation.navigate("Message", { idOther: message.id })}
+          style={styles.box} key={message.id}>
           <Image source={{ uri: `${message.avatar}` }} style={styles.avatar} />
           <View style={styles.messageContent}>
             <Text style={styles.userName}>{message.name}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       ))}
 
       <TouchableOpacity style={styles.newConversationButton} onPress={handleNewConversation}>

@@ -1,21 +1,17 @@
 import { StyleSheet, StatusBar } from 'react-native';
 
-const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 10 : 64;
+const statusBar = StatusBar.currentHeight ? StatusBar.currentHeight + 10 : 64;
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'gray',
-  },
-  femasschat: {
-    fontSize: 18,
-    marginLeft: 10,
-    marginTop: statusBarHeight,
-    marginBottom: 10,
+    paddingTop: statusBar + 20,
   },
   searchContainer: {
     alignItems: 'center',
     marginTop: 20,
+    paddingHorizontal: 16,
   },
   searchInput: {
     backgroundColor: 'orange',
@@ -40,31 +36,42 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   minimumCharacterText: {
-    color: 'red',
+    color: 'yellow',
     fontSize: 12,
     marginBottom: 10,
+    paddingHorizontal: 16,
+    alignSelf: "center",
+    fontWeight: "bold"
   },
   returnButton: {
     position: 'absolute',
-    bottom: 20,
+    top: statusBar,
     left: 20,
   },
-  userItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+  userItem: { 
+    paddingHorizontal: 30,
+    paddingVertical: 5,
     marginBottom: 1,
   },
-  userAvatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
+  userInfo: {
+    backgroundColor: 'orange',
+    borderRadius: 15,
+    alignItems: 'center',
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
   },
   userName: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: 'black',
+  },
+  userEmail: {
+    fontSize: 14,
+    color: 'black',
+  },
+  userPhone: {
+    fontSize: 14,
+    color: 'black',
   },
 });
