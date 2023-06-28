@@ -66,7 +66,6 @@ export default function CreateAccount()
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#15202b" barStyle="light-content" />
-      <Text style={styles.femasschat}>FeMASSChat</Text>
       <View style={styles.formContainer}>
         <Text style={styles.label}>Nome:</Text>
         <TextInput

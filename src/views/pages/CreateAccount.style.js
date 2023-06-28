@@ -7,12 +7,6 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: 'gray',
     },
-    femasschat: {
-        fontSize: 18,
-        alignSelf: 'flex-start',
-        marginLeft: 20,
-        marginTop: 10,
-    },
     formContainer: {
         flex: 1,
         alignItems: 'center',
@@ -46,7 +40,7 @@ export default StyleSheet.create({
     },
     returnButton: {
         position: 'absolute',
-        bottom: 20,
+        top: 25,
         left: 20,
     },
     avatarPreview: {

@@ -22,7 +22,6 @@ export default function LoginScreen()
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#15202b" barStyle="light-content" />
-      <Text style={styles.femasschat}>FeMASSChat</Text>
       <View style={styles.formContainer}>
         <Text style={styles.label}>E-Mail ou telefone:</Text>
         <TextInput

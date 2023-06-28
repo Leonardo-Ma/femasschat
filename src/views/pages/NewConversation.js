@@ -42,6 +42,9 @@ export default function NewConversation()
 
     return (
         <View style={styles.container}>
+            <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
+                <Feather name="arrow-left" size={30} color="black" />
+            </TouchableOpacity>
             <View style={styles.searchContainer}>
                 <TextInput
                     style={styles.searchInput}
@@ -77,9 +80,6 @@ export default function NewConversation()
                     <Text style={styles.noUsersText}>Nenhum usuário encontrado</Text>
                 )
             )}
-            <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
-                <Feather name="arrow-left" size={30} color="black" />
-            </TouchableOpacity>
         </View>
     );
 }

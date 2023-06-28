@@ -116,7 +116,7 @@ export const checkUsers = async () =>
 {
   try
   {
-    const url = `${URL}/message/buscarUsuarios/22`;
+    const url = `${URL}/message/buscarUsuarios/2299999999`;
     const response = await axios.get(url);
 
     if (response.status === 200)

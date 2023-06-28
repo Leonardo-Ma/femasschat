@@ -1,6 +1,6 @@
 import { StyleSheet, StatusBar } from 'react-native';
 
-const statusBar = StatusBar.currentHeight ? StatusBar.currentHeight + 10 : 64;
+const statusBar = StatusBar.currentHeight ? StatusBar.currentHeight : 60;
 
 export default StyleSheet.create({
   container: {
@@ -56,7 +56,7 @@ export default StyleSheet.create({
   },
   returnButton: {
     position: 'absolute',
-    top: statusBar,
+    top: 25,
     left: 20,
   },
 });

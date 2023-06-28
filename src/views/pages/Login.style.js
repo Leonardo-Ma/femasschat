@@ -5,12 +5,6 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: 'gray',
   },
-  femasschat: {
-    fontSize: 18,
-    alignSelf: 'center',
-    marginTop: 10,
-    color: 'black',
-  },
   formContainer: {
     flex: 1,
     alignItems: 'center',
@@ -45,7 +39,7 @@ export default StyleSheet.create({
   },
   returnButton: {
     position: 'absolute',
-    bottom: 20,
+    top: 20,
     left: 20,
   },
   errorMessage: {
